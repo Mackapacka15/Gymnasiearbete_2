@@ -10,6 +10,7 @@ public static class Manager
         Menu,
         Lobby,
         Main_Map,
+        Gyro,
     }
     public static void Load(Scene scene)
     {

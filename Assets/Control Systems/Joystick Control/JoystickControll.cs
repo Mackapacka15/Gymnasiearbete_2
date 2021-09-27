@@ -6,15 +6,18 @@ public class JoystickControll : MonoBehaviour
 {
 
     public Joystick joystick;
+    public RigidBodyMovement moveController;
     // Start is called before the first frame update
-    void Start()
-    {
-        joystick = FindObjectOfType<Joystick>();
-    }
+    // void Start()
+    // {
+    //     joystick = FindObjectOfType<Joystick>();
+    // }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(joystick.Horizontal);
+        float joyValue = joystick.Horizontal;
+        Debug.Log(joyValue);
+        moveController.move = joyValue;
     }
 }

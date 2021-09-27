@@ -6,7 +6,7 @@ public class RigidBodyMovement : MonoBehaviour
 {
     private float speed;
     private int canJump = 0;
-    private int frameJumpLimit = 5;
+    private int frameJumpLimit = 10;
 
     [Header("Refrences")]
     public Rigidbody2D body;
@@ -17,11 +17,12 @@ public class RigidBodyMovement : MonoBehaviour
     public float move = 1f; //-1 to 1
     public bool jump; //0 or 1
     [Header("Values To Change")]
-    public float baseSpeed = 10f;
+    public int maxSpeed;
+    public float baseSpeed = 8f;
     public float airResistance = 5f;
     public float jumpHight;
     public float fallMultiplier = 2.5f;
-    private void Update() 
+    private void FixedUpdate() 
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
 
@@ -31,8 +32,9 @@ public class RigidBodyMovement : MonoBehaviour
             body.velocity = Vector2.down * 0;
             if(jump && canJump >= frameJumpLimit)
             {
-                body.AddForce(Vector2.up * jumpHight);
+                body.AddForce(Vector2.up * jumpHight*Time.deltaTime);
                 canJump = 0;
+                Debug.Log("FUCK");
             }
             else
             {
@@ -43,9 +45,6 @@ public class RigidBodyMovement : MonoBehaviour
         {
             speed = baseSpeed / airResistance;
         }
-    }
-    private void FixedUpdate() 
-    {
         //Jump?
         if(body.velocity.y < 0)
         {
@@ -54,15 +53,19 @@ public class RigidBodyMovement : MonoBehaviour
 
         //Move
         body.AddForce(Vector2.right * speed * move, ForceMode2D.Impulse);
+
+        if(body.velocity.magnitude > maxSpeed)
+        {
+            body.velocity = body.velocity.normalized * maxSpeed;
+        }
+
     }
     public void activateJump()
     {
         jump = true;
-        Debug.Log("FUCK");
     }
     public void deactivateJump()
     {
         jump = false;
-        Debug.Log("FUCK ENDS");
     }
 }
