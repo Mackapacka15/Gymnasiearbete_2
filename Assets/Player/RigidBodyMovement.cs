@@ -12,6 +12,8 @@ public class RigidBodyMovement : MonoBehaviour
     public Rigidbody2D body;
     public Transform groundCheck;
     public LayerMask ground;
+    public Animator animator;
+    public SpriteRenderer playerRenderer;
     [Header("Public changeables")]
     public bool isGrounded;
     public float move = 1f; //-1 to 1
@@ -22,6 +24,7 @@ public class RigidBodyMovement : MonoBehaviour
     public float airResistance = 5f;
     public float jumpHight;
     public float fallMultiplier = 2.5f;
+
     private void FixedUpdate() 
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, ground);
@@ -34,7 +37,6 @@ public class RigidBodyMovement : MonoBehaviour
             {
                 body.AddForce(Vector2.up * jumpHight*Time.deltaTime);
                 canJump = 0;
-                Debug.Log("FUCK");
             }
             else
             {
@@ -58,7 +60,16 @@ public class RigidBodyMovement : MonoBehaviour
         {
             body.velocity = body.velocity.normalized * maxSpeed;
         }
-
+        animator.SetFloat("Speed", move);
+        animator.SetBool("InAir", !isGrounded);
+        if(move < -0.1)
+        {
+            playerRenderer.flipX = true;
+        }
+        else
+        {
+            playerRenderer.flipX = false;
+        }
     }
     public void activateJump()
     {
