@@ -13,8 +13,14 @@ public class GetScores
     public float[] buttonScores;
     public float[] gyroScores;
 
-    public GetScores()
+    public GetScores(End_Scene e)
     {
+        first = e.first;
+        firstScore = e.firstScore;
+        firstMode = e.firstMode;
 
+        joystickScores = e.joysticScores.ToArray();
+        buttonScores = e.buttonScores.ToArray();
+        gyroScores = e.gyroScores.ToArray();
     }
 }

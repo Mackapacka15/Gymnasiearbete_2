@@ -9,7 +9,7 @@ public static class SaveScores
         string path = Application.persistentDataPath + "/player.fbx";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        GetScores scores = new GetScores();
+        GetScores scores = new GetScores(End_Scene e);
 
         formatter.Serialize(stream, scores);
         stream.Close();
