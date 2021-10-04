@@ -1,7 +1,4 @@
-using System.Security.AccessControl;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//PlayerData
 
 [System.Serializable]
 public class GetScores
@@ -13,13 +10,13 @@ public class GetScores
     public float[] buttonScores;
     public float[] gyroScores;
 
-    public GetScores(End_Scene e)
+    public GetScores(HighScores e)
     {
         first = e.first;
         firstScore = e.firstScore;
         firstMode = e.firstMode;
 
-        joystickScores = e.joysticScores.ToArray();
+        joystickScores = e.joystickScores.ToArray();
         buttonScores = e.buttonScores.ToArray();
         gyroScores = e.gyroScores.ToArray();
     }

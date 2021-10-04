@@ -1,21 +1,22 @@
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+
+//SaveSystem
 public static class SaveScores
 {
-    public static void SaveData()
+    public static void SaveData(HighScores highScores)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.fbx";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        GetScores scores = new GetScores(End_Scene e);
-
-        formatter.Serialize(stream, scores);
+        GetScores data = new GetScores(highScores);
+        formatter.Serialize(stream, data);
         stream.Close();
 
     }
-    public static GetScores LoadScores()
+    public static HighScores LoadScores()
     {
         string path = Application.persistentDataPath + "/player.fbx";
         if (File.Exists(path))
@@ -23,7 +24,7 @@ public static class SaveScores
             FileStream stream = new FileStream(path, FileMode.Open);
             BinaryFormatter formatter = new BinaryFormatter();
 
-            GetScores scores = formatter.Deserialize(stream) as GetScores;
+            HighScores scores = formatter.Deserialize(stream) as HighScores;
             stream.Close();
             return scores;
 
