@@ -19,7 +19,8 @@ public class CharacterController2D : MonoBehaviour
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
-	private bool jumpLock;
+	private int jumpLock;
+	private int jumpLockFrames = 5;
 
 	[Header("Events")]
 	[Space]
@@ -71,15 +72,6 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool crouch, bool jump)
 	{
 		animator.SetFloat("Speed", move);
-        
-		// if(move < -0.1)
-        // {
-        //     playerRenderer.flipX = true;
-        // }
-        // else
-        // {
-        //     playerRenderer.flipX = false;
-        // }
 
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
@@ -142,11 +134,17 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (m_Grounded && jump)
+		if (m_Grounded && jump && jumpLock == jumpLockFrames)
 		{
+			jumpLock = 0;
 			// Add a vertical force to the player.
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			Debug.Log("Jump");
+		}
+		else if(jumpLock < jumpLockFrames)
+		{
+			jumpLock++;
 		}
 	}
 
