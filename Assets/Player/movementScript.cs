@@ -84,18 +84,7 @@ public class movementScript : MonoBehaviour
         Joystick();
         Accelerometer();
 
-<<<<<<< HEAD
         move = Mathf.Clamp(move, -1, 1);
-=======
-        if (move > 1)
-        {
-            move = 1;
-        }
-        if (move < -1)
-        {
-            move = -1;
-        }
->>>>>>> 33c09f301d53137eb7e911ac4adfac4633735e39
         characterController.Move(move * runSpeed * Time.fixedDeltaTime, false, jump);
         theText.text = move.ToString();
     }
