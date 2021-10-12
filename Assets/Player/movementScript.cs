@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class movementScript : MonoBehaviour
 {
     public CharacterController2D characterController;
     public Joystick joystick;
     public GameObject JoystickObject;
+
+    public TextMeshProUGUI theText;
 
     public GameObject ButtonObject;
 
@@ -51,8 +54,9 @@ public class movementScript : MonoBehaviour
     {
         if(playWay == 1)
         {
-            move = Input.acceleration.x;
+            move = Input.acceleration.x * 2;
         }
+        
     }
 
     void Start()
@@ -80,14 +84,8 @@ public class movementScript : MonoBehaviour
         Joystick();
         Accelerometer();
 
-        if(move > 1)
-        {
-            move = 1;
-        }
-        if(move < -1)
-        {
-            move = -1;
-        }
+        move = Mathf.Clamp(move, -1, 1);
         characterController.Move(move * runSpeed * Time.fixedDeltaTime, false, jump);
+        theText.text = move.ToString();
     }
 }

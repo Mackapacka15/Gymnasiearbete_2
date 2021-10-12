@@ -3,6 +3,8 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
+	public ParticleSystem landParticles;
+
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
 	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
@@ -20,7 +22,10 @@ public class CharacterController2D : MonoBehaviour
 	private Vector3 m_Velocity = Vector3.zero;
 
 	private int jumpLock;
-	private int jumpLockFrames = 5;
+	private int jumpLockFrames = 4;
+
+	bool wasGrounded;
+	bool doubleWasGrounded;
 
 	[Header("Events")]
 	[Space]
@@ -50,7 +55,11 @@ public class CharacterController2D : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		bool wasGrounded = m_Grounded;
+
+
+		//FIX THE WasGrounded Change seems to change the jump in other areas
+		doubleWasGrounded = wasGrounded;
+		wasGrounded = m_Grounded;
 		m_Grounded = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -64,6 +73,10 @@ public class CharacterController2D : MonoBehaviour
 				if (!wasGrounded)
 					OnLandEvent.Invoke();
 			}
+		}
+		if(!doubleWasGrounded && !wasGrounded && m_Grounded)
+		{
+			landParticles.Play();
 		}
 		animator.SetBool("InAir", !wasGrounded);
 	}
@@ -134,15 +147,14 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (m_Grounded && jump && jumpLock == jumpLockFrames)
+		if ((m_Grounded || wasGrounded || doubleWasGrounded) && jump && jumpLock == jumpLockFrames)
 		{
 			jumpLock = 0;
 			// Add a vertical force to the player.
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-			Debug.Log("Jump");
 		}
-		else if(jumpLock < jumpLockFrames)
+		else if(jumpLock < jumpLockFrames && m_Grounded == true)
 		{
 			jumpLock++;
 		}
