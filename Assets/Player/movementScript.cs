@@ -16,14 +16,14 @@ public class movementScript : MonoBehaviour
     public int playWay;
 
     float move = 0;
-    
+
     bool jump = false;
 
-    public float runSpeed;    
+    public float runSpeed;
 
     public void MoveLeft()
     {
-        move = -1;    
+        move = -1;
     }
     public void MoveRight()
     {
@@ -41,18 +41,18 @@ public class movementScript : MonoBehaviour
     {
         jump = false;
     }
-    
+
     void Joystick()
     {
-        if(playWay == 3)
+        if (playWay == 3)
         {
             move = joystick.Horizontal;
         }
     }
-    
+
     void Accelerometer()
     {
-        if(playWay == 1)
+        if (playWay == 1)
         {
             move = Input.acceleration.x * 2;
         }
@@ -62,7 +62,7 @@ public class movementScript : MonoBehaviour
     void Start()
     {
         playWay = PlayerPrefs.GetInt("activePlayWay");
-        if(playWay == 3)
+        if (playWay == 3)
         {
             JoystickObject.SetActive(true);
         }
@@ -70,7 +70,7 @@ public class movementScript : MonoBehaviour
         {
             JoystickObject.SetActive(false);
         }
-        if(playWay == 2)
+        if (playWay == 2)
         {
             ButtonObject.SetActive(true);
         }
@@ -84,8 +84,23 @@ public class movementScript : MonoBehaviour
         Joystick();
         Accelerometer();
 
+<<<<<<< HEAD
         move = Mathf.Clamp(move, -1, 1);
+=======
+        if (move > 1)
+        {
+            move = 1;
+        }
+        if (move < -1)
+        {
+            move = -1;
+        }
+>>>>>>> 33c09f301d53137eb7e911ac4adfac4633735e39
         characterController.Move(move * runSpeed * Time.fixedDeltaTime, false, jump);
         theText.text = move.ToString();
+    }
+    public int GetPlayWayController()
+    {
+        return playWay;
     }
 }
