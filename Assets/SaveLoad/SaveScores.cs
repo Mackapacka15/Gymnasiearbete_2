@@ -8,26 +8,42 @@ public static class SaveScores
     public static void SaveData(HighScores highScores)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.fbx";
+        string path = Application.persistentDataPath + "/player.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         GetScores data = new GetScores(highScores);
         formatter.Serialize(stream, data);
         stream.Close();
-
+        Debug.Log("Save Succesfull");
+        Debug.Log("Button Saved:");
+        foreach (var item in data.buttonScores)
+        {
+            Debug.Log(item);
+        }
+        Debug.Log("Joystick Saved:");
+        foreach (var item in data.joystickScores)
+        {
+            Debug.Log(item);
+        }
+        Debug.Log("Gyro Saved:");
+        foreach (var item in data.gyroScores)
+        {
+            Debug.Log(item);
+        }
     }
-    public static HighScores LoadScores()
+    public static GetScores LoadScores()
     {
-        string path = Application.persistentDataPath + "/player.fbx";
+        string path = Application.persistentDataPath + "/player.txt";
+        Debug.Log("Loading");
         if (File.Exists(path))
         {
             FileStream stream = new FileStream(path, FileMode.Open);
             BinaryFormatter formatter = new BinaryFormatter();
 
-            HighScores scores = formatter.Deserialize(stream) as HighScores;
+            GetScores scores = formatter.Deserialize(stream) as GetScores;
             stream.Close();
+            Debug.Log("Load Succesfull");
             return scores;
-
         }
         else
         {
