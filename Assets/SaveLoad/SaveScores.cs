@@ -8,7 +8,7 @@ public static class SaveScores
     public static void SaveData(HighScores highScores)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.txt";
+        string path = Application.persistentDataPath + "/player.fbx";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         GetScores data = new GetScores(highScores);
@@ -33,7 +33,7 @@ public static class SaveScores
     }
     public static GetScores LoadScores()
     {
-        string path = Application.persistentDataPath + "/player.txt";
+        string path = Application.persistentDataPath + "/player.fbx";
         Debug.Log("Loading");
         if (File.Exists(path))
         {

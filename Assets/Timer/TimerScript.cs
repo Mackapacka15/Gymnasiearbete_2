@@ -20,7 +20,7 @@ public class TimerScript : MonoBehaviour
 
     private void Start()
     {
-        StartTimerCountDownTime(10.0f);
+        StartTimerCountDownTime(30.0f);
     }
 
     private void Update()
