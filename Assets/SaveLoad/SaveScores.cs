@@ -34,7 +34,6 @@ public static class SaveScores
     public static GetScores LoadScores()
     {
         string path = Application.persistentDataPath + "/player.fbx";
-        Debug.Log("Loading");
         if (File.Exists(path))
         {
             FileStream stream = new FileStream(path, FileMode.Open);
