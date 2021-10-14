@@ -70,11 +70,11 @@ public class EndScript : MonoBehaviour
     }
     private string GetType(int type)
     {
-        if (type == 0)
+        if (type == 1)
         {
             return "    Gyro";
         }
-        if (type == 1)
+        if (type == 3)
         {
             return "    Joystick";
         }
