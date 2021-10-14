@@ -23,21 +23,21 @@ public class TimerScript : MonoBehaviour
         StartTimerCountDownTime(30.0f);
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(timerCountDownActive == true)
+        if (timerCountDownActive == true)
         {
             timerCountDownValue -= Time.deltaTime;
             UpdateCountDownTimer();
-            if(timerCountDownValue <= 0)
+            if (timerCountDownValue <= 0)
             {
                 StopTimerCountDownTime();
             }
         }
 
-        if(timerRecordActive == true)
+        if (timerRecordActive == true)
         {
-        timerRecordValue += Time.deltaTime;
+            timerRecordValue += Time.deltaTime;
             UpdateRecordTimer();
         }
     }
