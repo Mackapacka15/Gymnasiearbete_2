@@ -9,7 +9,7 @@ public class movementScript : MonoBehaviour
     public Joystick joystick;
     public GameObject JoystickObject;
 
-    public TextMeshProUGUI theText;
+
 
     public GameObject ButtonObject;
 
@@ -86,7 +86,6 @@ public class movementScript : MonoBehaviour
 
         move = Mathf.Clamp(move, -1, 1);
         characterController.Move(move * runSpeed * Time.fixedDeltaTime, false, jump);
-        theText.text = move.ToString();
     }
     public int GetPlayWayController()
     {
