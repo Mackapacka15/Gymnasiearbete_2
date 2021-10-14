@@ -63,22 +63,13 @@ public class HighScores
             Debug.Log("FirstTime");
         }
 
-        if (type == 0)
+        if (type == 1)
         {
             gyroScores.Add(score);
             gyroScores.Sort();
             if (gyroScores.Count >= 4)
             {
                 gyroScores.RemoveAt(3);
-            }
-        }
-        else if (type == 1)
-        {
-            joystickScores.Add(score);
-            joystickScores.Sort();
-            if (joystickScores.Count >= 4)
-            {
-                joystickScores.RemoveAt(3);
             }
         }
         else if (type == 2)
@@ -90,13 +81,22 @@ public class HighScores
                 buttonScores.RemoveAt(3);
             }
         }
+        else if (type == 3)
+        {
+            joystickScores.Add(score);
+            joystickScores.Sort();
+            if (joystickScores.Count >= 4)
+            {
+                joystickScores.RemoveAt(3);
+            }
+        }
         SaveHighScores();
     }
     private List<float> AddRandomScores(List<float> list)
     {
-        list.Add(30f);
         list.Add(40f);
-        list.Add(50f);
+        list.Add(60f);
+        list.Add(90f);
 
         return list;
     }
