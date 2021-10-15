@@ -53,7 +53,8 @@ public class TimerScript : MonoBehaviour
 
     public float GetTimerRecordTime()
     {
-        return timerRecordValue;
+
+        return Mathf.Round(timerRecordValue * 100) / 100;
     }
     void UpdateRecordTimer()
     {
