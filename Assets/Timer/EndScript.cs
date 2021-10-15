@@ -10,14 +10,13 @@ public class EndScript : MonoBehaviour
     public CharacterController2D playerController;
     public GameObject player;
     public TimerScript timer;
-    public Camera mainCam;
-    public Camera endCam;
     public HighScores hs = new HighScores();
     public TextMeshProUGUI thisTime;
     public TextMeshProUGUI firstscore;
     public TextMeshProUGUI joystickHighScores;
     public TextMeshProUGUI buttonHighScores;
     public TextMeshProUGUI gyroHighScores;
+    public GameObject endScene;
     bool isAcitve = false;
 
     private void OnTriggerEnter2D(Collider2D otherCollider)
@@ -25,6 +24,7 @@ public class EndScript : MonoBehaviour
         if (isAcitve == false)
         {
             playerMoveController.enabled = false;
+            player.GetComponent<Rigidbody2D>().gravityScale = 0;
             playerAnimator.SetBool("Climb", true);
             isAcitve = true;
             Debug.Log("Starts Load");
@@ -54,9 +54,9 @@ public class EndScript : MonoBehaviour
         {
             isAcitve = false;
             playerMoveController.enabled = true;
+            player.GetComponent<Rigidbody2D>().gravityScale = 3;
             playerAnimator.SetBool("Climb", false);
-            mainCam.enabled = false;
-            endCam.enabled = true;
+            endScene.SetActive(true);
         }
     }
     private void UpdateScores()
